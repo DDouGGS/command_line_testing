@@ -1,0 +1,19 @@
+{
+    "name": "ddouggs/test_comand",
+    "description": "Comandos para testes shell",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Douglas Gonçalves de Souza",
+            "email": "ti.dougg@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "test_command\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}

@@ -3,7 +3,7 @@
     TestCommand [tc] = Comando de teste.
 */
 
-namespace TestCommand;
+namespace test_command;
 // namespace App\Libraries;
 
 abstract class tc
