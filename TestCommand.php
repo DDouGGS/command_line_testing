@@ -1,34 +1,12 @@
 <?php
-
-namespace App\Libraries;
-
 /*
-
-    LINHA DE COMANDO
-
-    PARA O FRAMEWORK SPIFFY
-    * COPIAR O ARQUIVO PARA A PASTA SCRIPTS
-    * ADICIONAR AO INI.INC.PHP
-
-        // clt
-        require(realpath(__DIR__ . '/clt.php'));
-        clt::setConnection($connection);
-
-    * EXEMPLO DE USO PARA SCRIPTS
-
-        \clt::shell(array('test'));
-
-    PARA O LARAVEL
-    * CRIAR PASTA LIBRARIES
-    * COPIAR O ARQUIVO PARA A PASTA LIBRARIES
-    * INCLUIR NAMESPACE NO ARQUIVO
-        namespace App\Libraries;
-
- },}`
-
+    TestCommand [tc] = Comando de teste.
 */
 
-abstract class clt
+namespace TestCommand;
+// namespace App\Libraries;
+
+abstract class tc
 {
     protected static $protocol;
     protected static $index   = 1;
@@ -46,7 +24,7 @@ abstract class clt
     protected static $log = false;
     protected static $follow = true;
     // private $callbacks = array();
-        
+
     /**
      * Method __construct
      *
@@ -680,11 +658,11 @@ abstract class clt
         if (self::getSimple()) {
             foreach ($debugBacktrace as $item) {
                 if($count === 2){
-                    self::setReference($item['file'] . ':' . $item['function'] . ':' . $item['type'] . ':' . $item['line']);
+                    self::setReference(' ['  . $item['file'] . ' | ' . $item['line'] . ']');
                     self::setLabel(self::getReference());
                 }
                 if ($item['function'] !== 'backtrace') {
-                    $trace .= " <<<<< <<<<< "  . $item['class'] . $item['type'] . $item['function'] .  ' (' . $item['line'] . ");\n";
+                    $trace .= " <<<<< " . ' ['  . $item['class'] . $item['type'] . $item['function'] . "];\n";
                 }
                 ++$count;
             }
@@ -693,11 +671,11 @@ abstract class clt
 
         foreach ($debugBacktrace as $item) {
             if($count === 2){
-                    self::setReference($item['file'] . ':' . $item['function'] . ':' . $item['type'] . ':' . $item['line']);
+                    self::setReference(' ['  . $item['file'] . ' | ' . $item['line'] . ']');
                     self::setLabel(self::getReference());
                 }
             if ($item['function'] !== 'backtrace') {
-                $trace .= " <<<<< <<<<< "  . $item['file'] . ' - ' . $item['class'] . $item['type'] . $item['function'] .  ' (' . $item['line'] . ");\n";
+                $trace .= " <<<<< " . ' ['  . $item['file'] . ' | ' . $item['line'] . '] - [' . $item['class'] . $item['type'] . $item['function'] . "];\n";
             }
             ++$count;
         }
