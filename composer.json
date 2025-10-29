@@ -14,7 +14,7 @@
             "test_command\\": "src/"
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "beta",
     "prefer-stable": true,
     "require": {}
 }
