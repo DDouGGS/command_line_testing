@@ -1,5 +1,5 @@
 {
-    "name": "ddouggs/test_comand",
+    "name": "ddouggs/test_command",
     "description": "Comandos para testes shell",
     "type": "library",
     "license": "GPL-3.0",
@@ -14,7 +14,6 @@
             "test_command\\": "src/"
         }
     },
-    "minimum-stability": "beta",
-    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {}
 }
