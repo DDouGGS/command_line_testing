@@ -45,7 +45,7 @@ abstract class TestCommand
      *
      * @return void
      */
-    public static function exec(array $configs, $test)
+    public static function exec(array $configs = null, $test = null)
     {
         return;
     }
