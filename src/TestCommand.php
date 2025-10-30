@@ -6,7 +6,7 @@
 namespace test_command;
 // namespace App\Libraries;
 
-abstract class tc
+abstract class TestCommand
 {
     protected static $protocol;
     protected static $index   = 1;
@@ -35,6 +35,19 @@ abstract class tc
         class_alias(get_class($this), 'cmdl');
         $this->setFolder($folder);
         self::$protocol = rand(100000, 100000000);
+    }
+    
+    /**
+     * Method exec
+     *
+     * @param array  $configs [explicite description]
+     * @param string $test [explicite description]
+     *
+     * @return void
+     */
+    public static function exec(array $configs, $test)
+    {
+        return;
     }
 
     public static function shell(array $output = array(), $condition = true)
