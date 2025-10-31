@@ -2,7 +2,7 @@
 /*
     tc.php 
 
-    RobГґ de execuГѓВ§ГѓВЈo do pacote.
+    Robф de execuзгo do pacote.
 */
 namespace test_command;
 /*
