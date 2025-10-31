@@ -1,10 +1,8 @@
 <?php
 /*
-    TestCommand [tc] = Comando de teste.
+    TestCommand = Comando de teste.
 */
-
 namespace test_command;
-// namespace App\Libraries;
 
 abstract class TestCommand
 {
@@ -23,6 +21,8 @@ abstract class TestCommand
     protected static $reference = 'book:chapter:title:subtitle:label';
     protected static $log = false;
     protected static $follow = true;
+    protected static $configs = array();
+    protected static $test = '';
     // private $callbacks = array();
 
     /**
@@ -45,8 +45,29 @@ abstract class TestCommand
      *
      * @return void
      */
-    public static function exec(array $configs = null, $test = null)
+    public static function exec($configs = null, $test = null)
     {
+        // 'baseFolder' => realpath(__DIR__ . '/../../../../') . '/',
+        // 'testFolder' => realpath(__DIR__ . '/../../../../') . '/tests/',
+        self::setConfigs($configs);
+        self::setTest($test);
+
+        $obj = self::getConfigs()['configs']['testNamespace'] . str_replace('.php','',$test);
+        // requires
+        foreach(self::getConfigs()['configs']['requires'] as $item){
+            require_once(self::getConfigs()['baseFolder'] . $item);
+        }
+        // O arquivo de ter seu nome com final '_test' sempre
+        require_once(self::getConfigs()['testFolder'] . $test);
+        // test
+        // A classe de test deve ter o mesmo nome do arquivo
+        $obj = new $obj();
+        // Toda função de teste deve iniciar com a seguinte particula: 'test_'
+        foreach(get_class_methods($obj) as $item){
+            if(strpos($item, 'test_') !== false){
+                $obj->$item();
+            } 
+        }
         return;
     }
 
@@ -473,13 +494,12 @@ abstract class TestCommand
      *
      * @return void
      */
-    public static function trueShell(Closure $callback, $condition = true)
+    public static function trueShell($callback, $condition = true)
     {
         // condition
         if (is_bool($condition) && $condition === true) {
             // asset
-            $rtn = $callback();
-            $sd  = ($rtn === true);
+            $sd = ($callback === true);
             $sds = $sd? 'true': 'false';
             // assets;
             $index = self::$index . ":trueShell:" . self::getLabel();
@@ -942,6 +962,42 @@ abstract class TestCommand
     public static function setFollow($follow)
     {
         if(!empty($folder)){ self::$follow = $follow;}
+    }
+
+    /**
+     * Get the value of configs
+     */ 
+    public static function getConfigs()
+    {
+        return self::$configs;
+    }
+
+    /**
+     * Set the value of configs
+     *
+     * @return  void
+     */ 
+    public static function setConfigs($configs)
+    {
+        if(isset($configs) && !empty($configs)) self::$configs = $configs;
+    }
+
+    /**
+     * Get the value of test
+     */ 
+    public static function getTest()
+    {
+        return self::$test;
+    }
+
+    /**
+     * Set the value of test
+     *
+     * @return  self
+     */ 
+    public static function setTest($test)
+    {
+        if(isset($test) && !empty($test)) self::$test = $test;
     }
 }
 

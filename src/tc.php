@@ -2,7 +2,7 @@
 /*
     tc.php 
 
-    Robô de execução do pacote.
+    Robô de execuÃ§Ã£o do pacote.
 */
 namespace test_command;
 /*
@@ -10,17 +10,15 @@ namespace test_command;
 */
 require(__DIR__ .'/TestCommand.php');
 /*
-{
-    'require': {
+return [
+    'requires': [
         './init.php
-    };
-}
+    ],
+    'testNamespace': "tests\\"
+]
 */
 $configs = array(
-    'baseFolder' => realpath(__DIR__ . '/../../../../'),
-    'testFolder' => realpath(__DIR__ . '/../../../../') . '/tests/',
-    'configs' => require(realpath(__DIR__ . '/../../../../') . '/test_commands.json')
+    'configs' => require(realpath(__DIR__ . '/../../../../') . '/test_commands.php')
 );
-$test = $argv[1];
-TestCommand::exec($configs, $test);
+TestCommand::exec($configs, $argv[1]);
 exit();
